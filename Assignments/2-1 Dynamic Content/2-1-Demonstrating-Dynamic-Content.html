@@ -23,6 +23,10 @@
         width:50%;
         padding-left:15px;         
     }
+
+    #resetBtn {
+        margin-top: 5px;
+    }
 </style>
 
 <script>
@@ -91,6 +95,28 @@
             newTeamInput.value = "";
         });
 
+            // Reset page to original state
+            document.getElementById('resetBtn').addEventListener('click', () => {
+            // Reset team array to original values
+            teamNames.length = 0;
+            teamNames.push("Chiefs", "Raiders", "Cubs");
+
+            // Reload dropdowns
+            loadTeams(teamNames);
+            loadProducts(cookies);
+
+            // Clear outputs
+            document.getElementById('outputTeam').textContent = "";
+            document.getElementById('outputProduct').textContent = "";
+
+            // Clear input field
+            document.getElementById('newTeam').value = "";
+
+            // Uncheck radio buttons
+            document.getElementById('showCookies').checked = false;
+            document.getElementById('showCandy').checked = false;
+        });
+
         // Shows selected team
         teamSelect.addEventListener('click', () => {
             document.getElementById('outputTeam').textContent = teamSelect.value;
@@ -127,7 +153,10 @@
 
         <input type="text" id="newTeam" placeholder="Enter new team">
         <button id="addTeamBtn">Add Team</button>
+        <button id="resetBtn">Reset</button>
     </div>
+    
+    
 
     <div class="rightSide">
         <h3>Products</h3>
