@@ -1,116 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2-1 Demonstrate Dynamic Content</title>
-    <!-- <script src="script2-1.js"></script> -->
-    
-    <script> 
-        // Data for Olympic seasons and sports
-        const olympicSeasons = ["Winter Olympics", "Summer Olympics"];
-        const winterSports = ["Alpine Skiing", "Figure Skating", "Snowboarding"];
-        const summerSports = ["Swimming", "Volleyball", "Gymnastics"];
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Caitlyn Wheeler">
+<meta name="date" content="2026-01-26">
+<title>WDV321 Advanced JavaScript</title>
+<style>
+    #container {
+        background-color: blanchedalmond;
+        width:70%;
+        margin-left:auto;
+        margin-right:auto;
+        padding:5px;
+    }
+    section {
+        display:flex;
+        justify-content: center;
+    }
+    .leftSide, .rightSide {
+        border: thin solid brown;
+        width:50%;
+        padding-left:15px;         
+    }
+</style>
 
-        // Function to load sports into "Olympic Sports" dropdown
-        function loadSports(list) {
-            sportSelect = document.getElementById("sportSelect");
-            sportSelect.innerHTML = "";
+<script>
+    // Defined data arrays
+    const teamNames = ["Chiefs", "Raiders", "Cubs"];
+    const cookies = ["Chocolate Chip Cookie", "Sugar Cookie", "Peanut Butter Cookie"];
+    const candies = ["M&Ms", "Baby Ruth", "Snickers"];
 
-            // Populate dropdown with options using createElement() and appendChild()
-            for (i = 0; i < list.length; i++) {
-                option = document.createElement("option");
-                option.value = list[i];
-                option.textContent = list[i];
-                sportSelect.appendChild(option);
-            }
+    // Function to load teams dropdown
+    function loadTeams(list) {
+        const select = document.getElementById('teamSelect');
+        select.innerHTML = "";
+        list.forEach(team => {
+            const option = document.createElement('option');
+            option.value = team;
+            option.textContent = team;
+            select.add(option);
+        });
     }
 
-            // Run after DOM loads
-            document.addEventListener("DOMContentLoaded", () => {
-    
-            // Initially populates sports dropdown with a list of olympic sports
-            const sportSelect = document.getElementById("sportSelect");
-            const allSports = winterSports.concat(summerSports);
-            allSports.forEach((sport) => {
-                const option = document.createElement("option");
-                option.value = sport;
-                option.textContent = sport;
-                sportSelect.appendChild(option);
-            });
-
-            // Add new sport
-            document.getElementById("addSportBtn").addEventListener("click", function() {
-                newSportInput = document.getElementById("newSport");
-                newSport = newSportInput.value.trim();
-                season = document.getElementById("seasonSelect").value;
-
-                if (newSport === "") {
-                    alert("Please enter a sport name!");
-                    return;
-                }
-
-                // Determine which season's array to add the new sport to
-                if (season === "Winter Olympics") {
-                    targetArray = winterSports;
-                } else {
-                    targetArray = summerSports;
-                }
-
-                // Check if sport already exists in that season 
-                if (targetArray.includes(newSport)) {
-                    alert("That sport already exists in this season!");
-                    return;
-                }
-
-                // Add new sport to the correct season array
-                targetArray.push(newSport);
-                newSportInput.value = "";
-                alert("Added " + newSport + " to " + season + "! Click the load button to see it.");
-            });
-
-            // Load buttons to switch between Olympic Seasons
-            document.getElementById("loadWinterBtn").addEventListener("click", function() {
-            loadSports(winterSports);
-            });
-
-            document.getElementById("loadSummerBtn").addEventListener("click", function() {
-            loadSports(summerSports);
-            });
+    // Function to load products dropdown
+    function loadProducts(list) {
+        const select = document.getElementById('productSelect');
+        select.innerHTML = "";
+        list.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            option.textContent = item;
+            select.add(option);
         });
-    
-    </script>
+    }
 
-  </head>
-  <body>
-      <h1>Olympic Sports</h1>
-  
-      <h2>Step 1: Dropdown Created with document.write()</h2>
-      <label>Olympic Seasons</label>
-      <select id="seasonSelect">
-        <!-- Populate using document.write() -->
-        <script>
-        for(let i = 0; i < olympicSeasons.length; i++) {
-            document.write("<option value='" + olympicSeasons[i] + "'>" + olympicSeasons[i] + "</option>");
-         }
-        </script> 
-      </select>
-  
-      <h2>Step 2: Dropdown Created with createElement() and appendChild()</h2>
-      <label>Olympic Sports</label>
-      <select id="sportSelect">
-      </select>
-  
-      <h2>Step 3: Add a New Sport</h2>
-      <input type="text" id="newSport" placeholder="Enter new sport">
-      <button id="addSportBtn">Add Sport</button>
-  
-      <h2>Step 4: Switch Between Olympic Seasons</h2>
-      <!--
-          Add event listener on the 'loadWinterBtn' button to reload the winter sports
-          Add event listener on the 'loadSummerBtn' button to reload the summer sports
-      -->
-      <button id="loadWinterBtn">Load Winter Sports</button>
-      <button id="loadSummerBtn">Load Summer Sports</button>
-  </body>
-  </html>
+    // Run JS after DOM loads
+    document.addEventListener("DOMContentLoaded", () => {
+        const teamSelect = document.getElementById('teamSelect');
+        const productSelect = document.getElementById('productSelect');
+
+        // Initial population dropdowns
+        loadTeams(teamNames);
+        loadProducts(cookies);
+
+        // Add new team
+        document.getElementById('addTeamBtn').addEventListener('click', () => {
+            const newTeamInput = document.getElementById('newTeam');
+            const newTeam = newTeamInput.value.trim();
+
+            // Validate input
+            if(newTeam === "") { 
+                alert("Enter a team!"); return; 
+            }
+            // Prevents duplications
+            if(teamNames.includes(newTeam)) {
+                alert("Team exists!"); 
+                return; 
+            }
+
+            // Add new team to array
+            teamNames.push(newTeam);
+
+            // Create new option in dropdown
+            const option = document.createElement('option');
+            option.value = newTeam;
+            option.textContent = newTeam;
+            teamSelect.add(option);
+
+            newTeamInput.value = "";
+        });
+
+        // Shows selected team
+        teamSelect.addEventListener('click', () => {
+            document.getElementById('outputTeam').textContent = teamSelect.value;
+        });
+
+        // Shows selected products
+        productSelect.addEventListener('click', () => {
+            document.getElementById('outputProduct').textContent = productSelect.value;
+        });
+
+        // Switches product types
+        document.getElementById('showCookies').addEventListener('click', () => {
+            if(document.getElementById('showCookies').checked) loadProducts(cookies);
+        });
+        document.getElementById('showCandy').addEventListener('click', () => {
+            if(document.getElementById('showCandy').checked) loadProducts(candies);
+        });
+    });
+</script>
+
+</head>
+<body>
+<div id="container">
+<main>
+<h1>WDV321 Advanced JavaScript</h1>
+<h2>Dynamic Content - Drop Down Lists</h2>
+
+<section>
+    <div class="leftSide">
+        <h3>Team Names</h3>
+        <label for="teamSelect">Teams:</label>
+        <select id="teamSelect"></select>
+        <p>Selected Team: <span id="outputTeam"></span></p>
+
+        <input type="text" id="newTeam" placeholder="Enter new team">
+        <button id="addTeamBtn">Add Team</button>
+    </div>
+
+    <div class="rightSide">
+        <h3>Products</h3>
+        <label for="productSelect">Products:</label>
+        <select id="productSelect"></select>
+        <p>Selected Product: <span id="outputProduct"></span></p>
+
+        <p>
+            <input type="radio" name="productType" id="showCookies"> Cookies
+            <br>
+            <input type="radio" name="productType" id="showCandy"> Candy
+        </p>
+    </div>
+</section>
+</main>
+</div>
+
+</body>
+</html>
