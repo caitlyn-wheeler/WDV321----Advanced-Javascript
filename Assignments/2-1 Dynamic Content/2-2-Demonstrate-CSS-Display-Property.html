@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>WDV321 Advanced Javascript</title>
+	<style>
+
+        /* 
+		   Display Container holds all dynamically shown content.
+		   Width is fixed so it does not jump when content is toggled
+		*/
+
+		#displayContainer { 
+            width:30%; 
+            min-width: 400px; 
+            margin-left:20px; 
+            padding:10px; 
+            box-sizing: border-box; 
+        } 
+
+        /* 
+           All reason sections are hidden by default
+        */
+        
+        #reasonType1, #reasonType2, #reasonType3 {
+            display: none; 
+        } 
+
+        /* 
+           Common styling for each reason section for consistancy
+        */
+        
+        .reasonType { 
+            border: 3px solid black; 
+            padding: 10px; 
+        } 
+
+        /* 
+           Forces labels to appear on their own line
+           instead of inline
+        */
+        
+        .reasonType .reason-label { 
+            display: block; 
+            margin: 6px; 
+        } 
+
+        /* Adds spacing around dropdowns */
+        
+        .reasonType select { 
+            margin: 15px; 
+        }
+
+	</style>
+
+    <script>
+
+        //This function is triggered when the user changes the "Reason For Contact" dropdown.
+        function showReason() {
+
+            // Remove content to ensures only ONE section is visible at a time
+  		    document.getElementById("reasonType1").style.display = "none";
+            document.getElementById("reasonType2").style.display = "none";
+            document.getElementById("reasonType3").style.display = "none";
+
+        // Get value from the selected dropdown option
+        let choice = document.getElementById("contactType").value;
+
+        // Use CSS Display Property to display the selected value's content container
+        if (choice === "C") {
+            document.getElementById("reasonType1").style.display = "block";
+        } else if (choice === "T") {
+            document.getElementById("reasonType2").style.display = "block";
+        } else if (choice === "P") {
+            document.getElementById("reasonType3").style.display = "block";
+        }
+    }
+
+    
+
+    </script>
+</head>
+
+<body>
+
+	<h1>WDV321 Advanced Javascript</h1>
+	<h2>Dynamic Structure -  Display Property Exercise</h2>
+        
+    <p>Use this page as the basis for your assignment. You are welcome to change the content, layout and style of this page as desired. </p>
+
+    <p>Create the following content areas on the page using HTML.</p>
+	
+        <ol>
+	        <li>Create a div that contains a new drop down list with at least four common Complaints to a company. </li>
+	        <li>Create a div that contains four Technical Problems displayed as a set of checkboxes. </li>
+	        <li>Create a div that contains four Product Issues displayed as a set of radio buttons.</li>
+	        <li>Use the display property to remove these content containers from the page.</li>
+        </ol>
+	
+    <p>
+		Based on the selection from the &quot;Reason For Contact&quot; drop down, dynamically
+		display the requested content in the Display Container section. For this exercise use
+		the CSS display property to show/remove the requested content areas.
+	</p>
+	
+    <h4>Customer Service Complaints:</h4>
+	
+    <p>
+		<label>Reason For Contact:
+		  <select name="contactType" id="contactType" onchange="showReason()">
+			<option value="">Select Reason</option>
+			<option value="C">Complaints</option>
+			<option value="T">Technical Problems</option>
+			<option value="P">Product Issues</option>
+		  </select>
+		</label>
+  </p>
+
+    <!-- Display container that holds all shown or hidden content in dropdown selection -->
+	
+    <section id="displayContainer">
+
+        <!-- Complaint Section -->
+            <div class="reasonType" id="reasonType1">
+
+                <label class="reason-label">Type of Complaint:
+                    <select name="complaintType" id="complaintType">
+                        <option value="">Select Complaint</option>
+                        <option value="complaint1">Issues with product/service quality</option>
+                        <option value="complaint2">Long wait times and delays</option>
+                        <option value="complaint3">Bad service</option>
+                        <option value="complaint4">Lack of clear communication</option>
+                    </select>
+                </label>
+             </div>
+        
+        <!-- Technical Problems Section -->
+            <div class="reasonType" id="reasonType2">
+            
+                <label class="reason-label">Type of Technical Problems:</label><br>
+                    
+                    <input type="checkbox" id="problem1" name="cybersecurity" value="problem1">
+                    <label for="problem1">Cybersecurity Threat</label><br>
+                    
+                    <input type="checkbox" id="problem2" name="infrastructure" value="problem2">
+                    <label for="problem2">Network and Infrastructure Issues</label><br>
+                    
+                    <input type="checkbox" id="problem3" name="hardware-software" value="problem3">
+                    <label for="problem3">Outdated or Incompatible Hardware/Software</label><br>
+                    
+                    <input type="checkbox" id="problem4" name="data-recovery" value="problem4">
+                    <label for="problem4">Data Backup and Recovery Failures</label><br>
+            </div>
+
+        <!-- Product Issues Section -->
+            <div class="reasonType" id="reasonType3">
+    
+                <label class="reason-label">Type of Product Issues:</label><br>
+                    
+                    <input type="radio" id="issue1" name="productIssue" value="design">
+                    <label for="issue1">Design Defects</label><br>
+                    
+                    <input type="radio" id="issue2" name="productIssue" value="manufacturing">
+                    <label for="issue2">Manufacturing Defects</label><br>
+
+                    <input type="radio" id="issue3" name="productIssue" value="marketing">
+                    <label for="issue3">Marketing Defects</label><br>
+
+                    <input type="radio" id="issue4" name="productIssue" value="packaging">
+                    <label for="issue4">Packaging/Labeling Errors</label>
+            </div>
+    
+	</section>
+	<p>&nbsp;</p>
+
+</body>
+</html>
