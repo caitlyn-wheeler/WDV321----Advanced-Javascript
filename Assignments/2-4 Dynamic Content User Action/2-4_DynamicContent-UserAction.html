@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Caitlyn Wheeler">
+  <meta name="date" content="2026-02-17">
+  <title>Class Activity: Dynamic Content User Actions</title>
+
+  <style>
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    #profiles {
+        display: none; /* Hides profiles */
+    }
+  </style>
+
+</head>
+
+<body>
+
+<!-- HTML TEMPLATE -->
+<h1>Profile Templates</h1>
+
+<template id="profileTemplate">
+  <div class="card">
+    <h2 class="name"></h2>
+    <p class="title"></p>
+  </div>
+</template>
+
+<div id="profiles"></div>
+
+<button id="showProfilesBtn">Show Profiles</button> <!-- Button to show profile cards when clicked on -->
+
+<button id="resetBtn">Reset</button> <!-- Button to reset and hide profile cards when clicked on -->
+
+<h2>Add a New Profile</h2>
+<form id="addProfileForm">
+  <label>
+    Name: 
+    <input type="text" id="newName" required>
+  </label>
+  <label>
+    Title: 
+    <input type="text" id="newTitle" required>
+  </label>
+  <button type="submit">Add Profile</button>
+</form>
+
+<script>
+
+    // INSTRUCTIONS
+    // Create a web page with the provided template.
+    // Use the provided JS data source to dynamically generate a profile card for each person.
+    // Use the the clone concept we learned to fill in the name and title from the JS array and
+    // Output to the display inside the "profiles" div.
+
+    const people = [
+    { name: "Alice Johnson", title: "Web Developer" },
+    { name: "Bob Smith", title: "UX Designer" },
+    { name: "Charlie Kim", title: "Project Manager" }
+];
+
+    const template = document.getElementById('profileTemplate'); 
+    const profilesDiv = document.getElementById('profiles'); 
+    const showBtn = document.getElementById('showProfilesBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // Clone cards
+    people.forEach(person => {
+        const clone = template.content.cloneNode(true);
+        clone.querySelector('.name').textContent = person.name;
+        clone.querySelector('.title').textContent = person.title;
+        profilesDiv.appendChild(clone);
+    });
+
+    // Show profiles when button is clicked
+    showBtn.addEventListener('click', () => {
+    profilesDiv.style.display = 'block'; // Make visible
+});
+
+    resetBtn.addEventListener('click', () => {
+    profilesDiv.style.display = 'none'; // Hide profiles
+});
+
+const form = document.getElementById('addProfileForm');
+const nameInput = document.getElementById('newName');
+const titleInput = document.getElementById('newTitle');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // prevent page reload
+
+  // Get the input values
+  const name = nameInput.value.trim();
+  const title = titleInput.value.trim();
+
+  if (name && title) {
+    // Clone template
+    const clone = template.content.cloneNode(true);
+    clone.querySelector('.name').textContent = name;
+    clone.querySelector('.title').textContent = title;
+
+    // Append to container
+    profilesDiv.appendChild(clone);
+
+    // Show container if it was hidden
+    profilesDiv.style.display = 'block';
+
+    // Clear inputs
+    nameInput.value = '';
+    titleInput.value = '';
+  }
+});
+
+</script>
+
+</body>
+</html>
